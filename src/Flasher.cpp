@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // BOSSA
 //
-// Copyright (c) 2011-2017, ShumaTech
+// Copyright (c) 2011-2018, ShumaTech
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -177,7 +177,6 @@ Flasher::verify(const char* filename, uint32_t& pageErrors, uint32_t& totalError
     uint32_t numPages;
     uint32_t pageOffset;
     uint32_t byteErrors = 0;
-    uint16_t calcCrc = 0;
     uint16_t flashCrc;
     long fsize;
     size_t fbytes;
@@ -215,6 +214,7 @@ Flasher::verify(const char* filename, uint32_t& pageErrors, uint32_t& totalError
 
             if (_samba.canChecksumBuffer())
             {
+                uint16_t calcCrc = 0;
                 for (uint32_t i = 0; i < fbytes; i++)
                     calcCrc = _samba.checksumCalc(bufferA[i], calcCrc);
                 

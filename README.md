@@ -1,5 +1,5 @@
-BOSSA 1.9
----------
+BOSSA 1.9.1
+-----------
 
 BOSSA is a flash programming utility for Atmel's SAM family of flash-based ARM microcontrollers.
 The motivation behind BOSSA is to create a simple, easy-to-use, open source utility to replace Atmel's SAM-BA software.
@@ -21,12 +21,16 @@ Supported Device Families
  * SAM3U
  * SAM4E
  * SAM4S
+ * SAMD21
  * SAM3X\*
  * SAM3A\*
  * SAM7L\*
  * SAM9XE\*
- * SAMD21\*
+ * SAMR21\*
  * SAME70\*
+ * SAMS70\*
+ * SAMV70\*
+ * SAMV71\*
 
 \* Device families which are not tested for each release and could stop working.
 
@@ -35,3 +39,4 @@ Do you want to help make sure a device family is tested or do you want to see a 
 The following individuals and companies graciously provided development boards to assist the BOSSA project.
  * Atmel Corporation (SAM3N, SAM3S, SAM3U)
  * David Crocker (SAM4E, SAM4S)
+ * Adafruit Industries (SAMD21, SAMD51)

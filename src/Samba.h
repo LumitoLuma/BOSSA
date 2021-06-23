@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // BOSSA
 //
-// Copyright (c) 2011-2017, ShumaTech
+// Copyright (c) 2011-2018, ShumaTech
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -93,6 +93,7 @@ private:
     bool _canChipErase;
     bool _canWriteBuffer;
     bool _canChecksumBuffer;
+    int _readBufferSize;
     bool _debug;
     bool _isUsb;
     SerialPort::Ptr _port;

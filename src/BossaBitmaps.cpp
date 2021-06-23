@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // BOSSA
 //
-// Copyright (c) 2011-2017, ShumaTech
+// Copyright (c) 2011-2018, ShumaTech
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,6 @@
 
 BossaBitmaps::BossaBitmaps()
 {
-    wxImage::AddHandler(new wxBMPHandler);
 }
 
 void

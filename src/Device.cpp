@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // BOSSA
 //
-// Copyright (c) 2011-2017, ShumaTech
+// Copyright (c) 2011-2018, ShumaTech
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -150,6 +150,24 @@ Device::create()
     //
     // SAM4S
     //
+    case 0x29870ee0: // A
+    case 0x29970ee0: // B
+    case 0x29A70ee0: // C
+        _family = FAMILY_SAM4S;
+        flashPtr = new EefcFlash(_samba, "ATSAM4SD32", 0x400000, 4096, 512, 2, 256, 0x20001000, 0x20010000, 0x400e0a00, false);
+        break;
+    case 0x29870c30: // A
+    case 0x29970c30: // B
+    case 0x29a70c30: // C
+        _family = FAMILY_SAM4S;
+        flashPtr = new EefcFlash(_samba, "ATSAM4SD16", 0x400000, 2048, 512, 2, 256, 0x20001000, 0x20010000, 0x400e0a00, false);
+        break;
+    case 0x28870ce0: // A
+    case 0x28970ce0: // B
+    case 0x28A70ce0: // C
+        _family = FAMILY_SAM4S;
+        flashPtr = new EefcFlash(_samba, "ATSAM4SA16", 0x400000, 2048, 512, 1, 256, 0x20001000, 0x20010000, 0x400e0a00, false);
+        break;
     case 0x288c0ce0 : // A
     case 0x289c0ce0 : // B
     case 0x28ac0ce0 : // C
@@ -226,9 +244,9 @@ Device::create()
         _family = FAMILY_SAM3S;
         flashPtr = new EefcFlash(_samba, "ATSAM3S2", 0x400000, 512, 256, 1, 8, 0x20000800, 0x20008000, 0x400e0a00, false);
         break;
-    case 0x288a0560 : // A
-    case 0x289a0560 : // B
-    case 0x28aa0560 : // C
+    case 0x28890560 : // A
+    case 0x28990560 : // B
+    case 0x28a90560 : // C
         _family = FAMILY_SAM3S;
         flashPtr = new EefcFlash(_samba, "ATSAM3S1", 0x400000, 256, 256, 1, 4, 0x20000800, 0x20004000, 0x400e0a00, false);
         break;
@@ -322,17 +340,58 @@ Device::create()
     //
     // SAME70
     //
-    case 0x21020a00:
+    case 0x210d0a00:
         _family = FAMILY_SAME70;
-        flashPtr = new EefcFlash(_samba, "ATSAME70x19", 0x400000, 1024, 512, 1, 32, 0x20401000, 0x20401040, 0x400e0c00, false);
+        flashPtr = new EefcFlash(_samba, "ATSAME70x19", 0x400000, 1024, 512, 1, 32, 0x20401000, 0x20404000, 0x400e0c00, false);
         break;
     case 0x21020c00:
         _family = FAMILY_SAME70;
-        flashPtr = new EefcFlash(_samba, "ATSAME70x20", 0x400000, 2048, 512, 1, 64, 0x20401000, 0x20401040, 0x400e0c00, false);
+        flashPtr = new EefcFlash(_samba, "ATSAME70x20", 0x400000, 2048, 512, 1, 64, 0x20401000, 0x20404000, 0x400e0c00, false);
         break;
     case 0x21020e00:
         _family = FAMILY_SAME70;
-        flashPtr = new EefcFlash(_samba, "ATSAME70x21", 0x400000, 4096, 512, 1, 128, 0x20401000, 0x20401040, 0x400e0c00, false);
+        flashPtr = new EefcFlash(_samba, "ATSAME70x21", 0x400000, 4096, 512, 1, 128, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    //
+    // SAMS70
+    //
+    case 0x211d0a00:
+        _family = FAMILY_SAMS70;
+        flashPtr = new EefcFlash(_samba, "ATSAMS70x19", 0x400000, 1024, 512, 1, 32, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    case 0x21120c00:
+        _family = FAMILY_SAMS70;
+        flashPtr = new EefcFlash(_samba, "ATSAMS70x20", 0x400000, 2048, 512, 1, 64, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    case 0x21120e00:
+        _family = FAMILY_SAMS70;
+        flashPtr = new EefcFlash(_samba, "ATSAMS70x21", 0x400000, 4096, 512, 1, 128, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    //
+    // SAMV70
+    //
+    case 0x213d0a00:
+        _family = FAMILY_SAMV70;
+        flashPtr = new EefcFlash(_samba, "ATSAMV70x19", 0x400000, 1024, 512, 1, 32, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    case 0x21320c00:
+        _family = FAMILY_SAMV70;
+        flashPtr = new EefcFlash(_samba, "ATSAMV70x20", 0x400000, 2048, 512, 1, 64, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    //
+    // SAMV71
+    //
+    case 0x212d0a00:
+        _family = FAMILY_SAMV71;
+        flashPtr = new EefcFlash(_samba, "ATSAMV71x19", 0x400000, 1024, 512, 1, 32, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    case 0x21220c00:
+        _family = FAMILY_SAMV71;
+        flashPtr = new EefcFlash(_samba, "ATSAMV71x20", 0x400000, 2048, 512, 1, 64, 0x20401000, 0x20404000, 0x400e0c00, false);
+        break;
+    case 0x21220e00:
+        _family = FAMILY_SAMV71;
+        flashPtr = new EefcFlash(_samba, "ATSAMV71x21", 0x400000, 4096, 512, 1, 128, 0x20401000, 0x20404000, 0x400e0c00, false);
         break;
     //
     // No CHIPID devices
@@ -429,43 +488,53 @@ Device::create()
 void
 Device::reset(void)
 {
-    switch (_family)
+    try
     {
-    case FAMILY_SAMD21:
-    case FAMILY_SAMR21:
-        _samba.writeWord(0xE000ED0C, 0x05FA0004);
-        break;
+        switch (_family)
+        {
+        case FAMILY_SAMD21:
+        case FAMILY_SAMR21:
+        case FAMILY_SAME70:
+        case FAMILY_SAMS70:
+        case FAMILY_SAMV70:
+        case FAMILY_SAMV71:
+            _samba.writeWord(0xE000ED0C, 0x05FA0004);
+            break;
 
-    case FAMILY_SAM3X:
-    case FAMILY_SAM3S:
-    case FAMILY_SAM3A:
-        _samba.writeWord(0x400E1A00, 0xA500000D);
-        break;
+        case FAMILY_SAM3X:
+        case FAMILY_SAM3S:
+        case FAMILY_SAM3A:
+            _samba.writeWord(0x400E1A00, 0xA500000D);
+            break;
 
-    case FAMILY_SAM3U:
-        _samba.writeWord(0x400E1200, 0xA500000D);
-        break;
+        case FAMILY_SAM3U:
+            _samba.writeWord(0x400E1200, 0xA500000D);
+            break;
 
-    case FAMILY_SAM3N:
-    case FAMILY_SAM4S:
-        _samba.writeWord(0x400E1400, 0xA500000D);
-        break;
+        case FAMILY_SAM3N:
+        case FAMILY_SAM4S:
+            _samba.writeWord(0x400E1400, 0xA500000D);
+            break;
 
-    case FAMILY_SAM4E:
-        _samba.writeWord(0x400E1800, 0xA500000D);
-        break;
+        case FAMILY_SAM4E:
+            _samba.writeWord(0x400E1800, 0xA500000D);
+            break;
 
-    case FAMILY_SAM7S:
-    case FAMILY_SAM7SE:
-    case FAMILY_SAM7X:
-    case FAMILY_SAM7XC:
-    case FAMILY_SAM7L:
-    case FAMILY_SAM9XE:
-        _samba.writeWord(0xFFFFFD00, 0xA500000D);
-        break;
+        case FAMILY_SAM7S:
+        case FAMILY_SAM7SE:
+        case FAMILY_SAM7X:
+        case FAMILY_SAM7XC:
+        case FAMILY_SAM7L:
+        case FAMILY_SAM9XE:
+            _samba.writeWord(0xFFFFFD00, 0xA500000D);
+            break;
 
-    default:
-        break;
+        default:
+            break;
+        }
+    }
+    catch (std::exception& expected)
+    {   // writeWord will most likely throw an exception when the CPU is reset
     }
 }
 

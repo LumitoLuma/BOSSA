@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // BOSSA
 //
-// Copyright (c) 2011-2017, ShumaTech
+// Copyright (c) 2011-2018, ShumaTech
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -67,7 +67,10 @@ public:
         FAMILY_SAMD21,
         FAMILY_SAMR21,
 
-        FAMILY_SAME70
+        FAMILY_SAME70,
+        FAMILY_SAMS70,
+        FAMILY_SAMV70,
+        FAMILY_SAMV71,
     };
 
     Device(Samba& samba) : _samba(samba), _flash(nullptr), _family(FAMILY_NONE) {}
