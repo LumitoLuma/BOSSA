@@ -194,8 +194,8 @@ ARMOBJCOPY=$(ARM)objcopy
 #
 # CXX Flags
 #
-COMMON_CXXFLAGS+=-Wall -Werror -MT $@ -MD -MP -MF $(@:%.o=%.d) -DVERSION=\"$(VERSION)\" -g -O2 $(CXXFLAGS)
-WX_CXXFLAGS:=$(shell wx-config --cxxflags --version=$(WXVERSION)) -DWX_PRECOMP -Wno-ctor-dtor-privacy -O2 -fno-strict-aliasing
+COMMON_CXXFLAGS+=-Wall -Werror -MT $@ -MD -MP -MF $(@:%.o=%.d) -DVERSION=\"$(VERSION)\" -DNDEBUG -O2 $(CXXFLAGS)
+WX_CXXFLAGS:=$(shell wx-config --cxxflags --version=$(WXVERSION)) -DWX_PRECOMP -Wno-ctor-dtor-privacy -DNDEBUG -O3 -fno-strict-aliasing
 BOSSA_CXXFLAGS=$(COMMON_CXXFLAGS) $(WX_CXXFLAGS)
 BOSSAC_CXXFLAGS=$(COMMON_CXXFLAGS)
 BOSSASH_CXXFLAGS=$(COMMON_CXXFLAGS)
@@ -203,7 +203,7 @@ BOSSASH_CXXFLAGS=$(COMMON_CXXFLAGS)
 #
 # LD Flags
 #
-COMMON_LDFLAGS+=-g $(LDFLAGS)
+COMMON_LDFLAGS+=$(LDFLAGS)
 BOSSA_LDFLAGS=$(COMMON_LDFLAGS)
 BOSSAC_LDFLAGS=$(COMMON_LDFLAGS)
 BOSSASH_LDFLAGS=$(COMMON_LDFLAGS)
