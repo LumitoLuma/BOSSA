@@ -32,9 +32,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <errno.h>
 #include <termios.h>
-#include <errno.h>
 #include <sys/ioctl.h>
 
 #include <string>
@@ -290,10 +288,7 @@ PosixSerialPort::put(int c)
 void
 PosixSerialPort::flush()
 {
-    // There isn't a reliable way to flush on a file descriptor
-    // so we just wait it out.  One millisecond is the USB poll
-    // interval so that should cover it.
-    usleep(1000);
+    tcdrain(_devfd);
 }
 
 bool
