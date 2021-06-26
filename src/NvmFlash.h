@@ -72,7 +72,7 @@ public:
 
     bool getBootFlash();
     void setBootFlash(bool enable);
-    bool canBootFlash() { return true; }
+    bool canBootFlash() { return false; }
 
     void writePage(uint32_t page);
     void readPage(uint32_t page, uint8_t* data);

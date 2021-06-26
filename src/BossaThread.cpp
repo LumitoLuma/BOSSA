@@ -133,9 +133,12 @@ WriteThread::Entry()
         
         flasher.write(_filename.mb_str(), _offset);
 
-        flash->setBootFlash(_bootFlash);
-        flash->setBod(_bod);
-        flash->setBor(_bor);
+        if (flash->canBootFlash())
+            flash->setBootFlash(_bootFlash);
+        if (flash->canBod())
+            flash->setBod(_bod);
+        if (flash->canBor())
+            flash->setBor(_bor);
         if (_lock)
             flash->lockAll();
         if (_security)
