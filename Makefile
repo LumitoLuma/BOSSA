@@ -4,7 +4,7 @@
 # Version
 #
 VERSION?=$(shell git describe --tags --dirty)
-WXVERSION=3.0
+WXVERSION=3.1
 
 #
 # Source files
