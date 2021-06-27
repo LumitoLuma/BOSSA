@@ -68,13 +68,6 @@ FlasherInfo::print()
         printf("BOD          : %s\n", bod ? "true" : "false");
     if (canBor)
         printf("BOR          : %s\n", bor ? "true" : "false");
-    
-    if (canChipErase)
-        printf("Chip Erase   : true\n");
-    if (canWriteBuffer)
-        printf("Fast Write   : true\n");
-    if (canChecksumBuffer)
-        printf("Fast Verify  : true\n");
 }
 
 void

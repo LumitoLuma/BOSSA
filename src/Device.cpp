@@ -32,31 +32,9 @@
 #include "NvmFlash.h"
 
 void
-Device::create()
+Device::readChipId(uint32_t& chipId, uint32_t& extChipId)
 {
-    Flash* flashPtr;
-    uint32_t chipId = 0;
-    uint32_t extChipId = 0;
-    uint32_t deviceId = 0;
-
-    // Device identification must be performed carefully to avoid reading from
-    // addresses that devices do not support.
-
-    // All devices support addresss 0 as the ARM reset vector so if the vector is
-    // a ARM7TDMI branch, then assume we have an Atmel SAM7/9 CHIPID register
-    if ((_samba.readWord(0x0) & 0xff000000) == 0xea000000)
-    {
-        chipId = _samba.readWord(0xfffff240);
-    }
-    // Next try the ARM CPUID register since all Coretex-M devices support it.
-    // If it identifies a Coretex M0+, then assume we have a SAMD device
-    // that only supports the ARM device ID register
-    else if ((_samba.readWord(0xe000ed00) & 0x0000fff0) == 0xC600)
-    {
-        deviceId = _samba.readWord(0x41002018);
-    }
-    // Assume we have a SAM3, SAM4 or SAME70 so check the CHIPID registers
-    else if ((chipId = _samba.readWord(0x400e0740)) != 0)
+    if ((chipId = _samba.readWord(0x400e0740)) != 0)
     {
         extChipId = _samba.readWord(0x400e0744);
     }
@@ -64,10 +42,56 @@ Device::create()
     {
         extChipId = _samba.readWord(0x400e0944);
     }
-    // Else we don't know what the device is
+}
+
+void
+Device::create()
+{
+    Flash* flashPtr;
+    uint32_t chipId = 0;
+    uint32_t cpuId = 0;
+    uint32_t extChipId = 0;
+    uint32_t deviceId = 0;
+
+    // Device identification must be performed carefully to avoid reading from
+    // addresses that devices do not support which will lock up the CPU
+
+    // All devices support addresss 0 as the ARM reset vector so if the vector is
+    // a ARM7TDMI branch, then assume we have an Atmel SAM7/9 CHIPID register
+    if ((_samba.readWord(0x0) & 0xff000000) == 0xea000000)
+    {
+        chipId = _samba.readWord(0xfffff240);
+    }
     else
     {
-        throw DeviceUnsupportedError();
+        // Next try the ARM CPUID register since all Cortex-M devices support it
+        cpuId = _samba.readWord(0xe000ed00) & 0x0000fff0;
+
+        // Cortex-M0+
+        if (cpuId == 0xC600)
+        {
+            // These should support the ARM device ID register
+            deviceId = _samba.readWord(0x41002018);
+        }
+        // Cortex-M4
+        else if (cpuId == 0xC240)
+        {
+            // SAM4 processors have a reset vector to the SAM-BA ROM
+            if ((_samba.readWord(0x4) & 0xfff00000) == 0x800000)
+            {
+                readChipId(chipId, extChipId);
+            }
+            // Else we should have a device that supports the ARM device ID register
+            else
+            {
+                deviceId = _samba.readWord(0x41002018);
+            }
+        }
+        // For all other Cortex versions try the Atmel chip ID registers
+        else
+        {
+            readChipId(chipId, extChipId);
+        }
     }
 
     // Instantiate the proper flash for the device
@@ -486,7 +510,7 @@ Device::create()
 }
 
 void
-Device::reset(void)
+Device::reset()
 {
     try
     {

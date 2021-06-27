@@ -442,7 +442,7 @@ main(int argc, char* argv[])
         {
             uint32_t pageErrors;
             uint32_t totalErrors;
-            
+
             timer_start();
             if (!flasher.verify(argv[args], pageErrors, totalErrors, config.offsetArg))
             {
