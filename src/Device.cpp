@@ -434,13 +434,16 @@ Device::create()
         case 0x10010027: // E15B
         case 0x10010056: // E15B WLCSP
         case 0x10010063: // E15C WLCSP
+        case 0x1001003f: // E15L
             _family = FAMILY_SAMD21;
             flashPtr = new NvmFlashD2x(_samba, "ATSAMD21x15", 0x2000, 512, 64, 1, 16, 0x20000800, 0x20001000, true) ;
             break;
 
         case 0x10010002: // J16A
         case 0x10010007: // G16A
+        case 0x10010057: // G16L
         case 0x1001000c: // E16A
+        case 0x1001003e: // E16L
         case 0x10010020: // J16B
         case 0x10010023: // G16B
         case 0x10010026: // E16B
@@ -453,7 +456,13 @@ Device::create()
         case 0x10010001: // J17A
         case 0x10010006: // G17A
         case 0x1001000b: // E17A
+        case 0x10010094: // E17D
+        case 0x10010095: // E17D WLCSP
+        case 0x10010097: // E17L
         case 0x10010010: // G17A WLCSP
+        case 0x10010093: // G17D
+        case 0x10010096: // G17L
+        case 0x10010092: // J17D
             _family = FAMILY_SAMD21;
             flashPtr = new NvmFlashD2x(_samba, "ATSAMD21x17", 0x2000, 2048, 64, 1, 16, 0x20002000, 0x20004000, true) ;
             break;

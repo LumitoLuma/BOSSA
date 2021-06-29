@@ -292,6 +292,11 @@ NvmFlash::setBootFlash(bool enable)
 }
 
 void
+NvmFlash::ready()
+{
+}
+
+void
 NvmFlash::writePage(uint32_t page)
 {
     if (page >= _pages)

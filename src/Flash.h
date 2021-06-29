@@ -126,6 +126,8 @@ public:
     virtual void setBootFlash(bool enable) = 0;
     virtual bool canBootFlash() = 0;
 
+    virtual void ready() = 0;
+
     virtual void writePage(uint32_t page) = 0;    
     virtual void readPage(uint32_t page, uint8_t* data) = 0;
 
